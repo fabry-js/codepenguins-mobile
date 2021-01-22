@@ -1,0 +1,8 @@
+{
+  "name": "code-penguins",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "bfa34e3e"
+}
