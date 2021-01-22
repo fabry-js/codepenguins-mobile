@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import moment from "moment";
 import { apiCallBegan } from "../actions/apiActions";
 
 type SliceState = {
@@ -23,6 +22,7 @@ const slice = createSlice({
     },
     loginDone: (state, action: PayloadAction<any>) => {
       state.userInfo.push(action.payload);
+      console.log(action.payload)
       state.lastLogin = Date.now();
     },
     loginFailed: (state) => {
@@ -51,7 +51,7 @@ export const loadUser = (
     rootReducer: { (): any; new (): any; user: { lastLogin: any } };
   }
 ) => {
-  const { lastLogin } = getState().rootReducer.user;
+  //  const { lastLogin } = getState().rootReducer.user;
 
   /**
    * @todo fai in modo che non venga fatto un re-fetch dello user se
@@ -72,16 +72,19 @@ export const loadUser = (
   );
 };
 
-export const login = (userInfos: any) => {
+export const login = (email: string | undefined, password: string | undefined) => {
+
+  const objToSend = { email, password };
 
   apiCallBegan({
     url,
     method: "post",
-    data: userInfos,
+    data: objToSend,
     onStart: loginRequested.type,
     onSuccess: loginDone.type,
     onError: loginFailed.type,
   });
+  console.log(objToSend);
 };
 
 export const logout = (dispatch: any) => {

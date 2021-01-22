@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "Code Penguins",
+  "name": "Code Penguins, the fun of dev chatting together, in your pocket!",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
