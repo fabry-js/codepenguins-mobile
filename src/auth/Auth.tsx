@@ -14,10 +14,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { login } from "../store/reducers/userSlice";
+
+import { signInWithGoogle } from "../auth/firebase";
 
 import Landscape from '../images/landscape.jpg'
-
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -36,17 +36,19 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "../theme/variables.css";
 import './Auth.css'
+import { useDispatch } from "react-redux";
 
 interface AuthProps {}
 
 const Auth: React.FC<AuthProps> = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const dispatch = useDispatch()
 
   const submit = () => {
     console.log(`yeah, ${email} ${password}`);
-    login(email, password);
   };
+
   return (
     <IonPage>
       <IonContent>
@@ -91,6 +93,12 @@ const Auth: React.FC<AuthProps> = () => {
 
           <IonButton expand="block" onClick={() => submit()}>
             Let's Go!🦜
+          </IonButton>
+        </IonCard>
+        
+        <IonCard>
+          <IonButton expand="block" onClick={() => signInWithGoogle(dispatch)}>
+            Sign In with Google
           </IonButton>
         </IonCard>
       </IonContent>

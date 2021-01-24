@@ -1,17 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./reducers/rootReducer";
-import loggerMiddleware from "./middleware/logger";
-import apiMiddleware from "./middleware/api";
+import reducer from "./reducer"
 
-
-export default function configuration() {
-  return configureStore({
-    reducer,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware()
-          .prepend(
-              loggerMiddleware,
-              apiMiddleware
-          )
-  });
+export default function config(){
+    return configureStore({
+        reducer
+    })
 }
