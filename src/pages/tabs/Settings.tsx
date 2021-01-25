@@ -10,12 +10,12 @@ import {
 } from "@ionic/react";
 import "./Settings.css";
 import { auth } from "../../auth/firebase";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 
 const Settings: React.FC = () => {
   const [logoutToastShown, setLogoutToastShown] = useState<boolean>(false);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleSignOut = useCallback(
     async () =>
@@ -23,7 +23,7 @@ const Settings: React.FC = () => {
         // history.push("/");
         setLogoutToastShown(true);
       }),
-    [history]
+    []
   );
 
   return (
