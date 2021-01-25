@@ -1,18 +1,31 @@
-import React from "react";
-import { Provider as ReduxProvider, useDispatch } from "react-redux";
-import configureStore from "../store/configureStore"
+import React, { createContext, useEffect, useState } from "react";
 
-import App from "../App";
-import Auth from "../auth/Auth";
 import { auth } from "../auth/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { IonToast } from "@ionic/react";
 
 interface ProviderProps {}
 
-const store = configureStore()
+export const AuthContext = createContext<any>(null);
 
-export const Provider: React.FC<ProviderProps> = () => {
-  const [ user ] = useAuthState(auth);
+export const Provider: React.FC<ProviderProps> = ({children}) => {
+  const [ currentUser, setCurrentUser ] = useState<null| any>()
+  const [ loading, setLoading] = useState<boolean>()
+  const [ showToast, setShowToast] = useState<boolean>(true)
 
-  return <ReduxProvider store={store}>{user ? <Auth /> : <App />}</ReduxProvider>;
+  // const user = localStorage.getItem('email')
+  // console.log(user)
+
+  useEffect(()=>{
+    auth.onAuthStateChanged((user) =>{
+      setCurrentUser(user)
+      setLoading(false)
+    })
+  })
+
+  if(loading)
+    return <IonToast isOpen={showToast} onDidDismiss={() => setShowToast(false)} message="Contacting our master penguin to log in..." duration={400} />
+
+  return <AuthContext.Provider value={{currentUser}}>
+    {children}
+  </AuthContext.Provider>;
 };

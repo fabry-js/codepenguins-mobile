@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -7,17 +7,20 @@ import {
   IonCardTitle,
   IonContent,
   IonHeader,
-  IonImg,
-  IonInput,
-  IonItem,
+  IonIcon,
   IonPage,
   IonTitle,
+  IonToast,
   IonToolbar,
 } from "@ionic/react";
 
-import { signInWithGoogle } from "../auth/firebase";
-
-import Landscape from '../images/landscape.jpg'
+import {
+  auth,
+  googleProvider,
+  githubProvider,
+  twitterProvider,
+} from "../auth/firebase";
+import { AuthContext } from "../providers/Provider";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -35,33 +38,64 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 /* Theme variables */
 import "../theme/variables.css";
-import './Auth.css'
-import { useDispatch } from "react-redux";
+import "./Auth.css";
 
-interface AuthProps {}
+import { useHistory } from "react-router";
+import { logoGithub, logoGoogle, logoTwitter } from "ionicons/icons";
 
-const Auth: React.FC<AuthProps> = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const dispatch = useDispatch()
+const Auth = () => {
+  const [ errorToastShown, setErrorToastShown ] = useState<boolean | undefined>();
+  const [ successToastShown, setSuccessToastShown ] = useState<
+    boolean | undefined
+  >();
 
-  const submit = () => {
-    console.log(`yeah, ${email} ${password}`);
+  const { currentUser } = useContext(AuthContext);
+
+  const history = useHistory();
+
+  const handleGoogleAuth = async () => {
+    try {
+      await auth.signInWithRedirect(googleProvider);
+      setSuccessToastShown(true);
+      history.push("/");
+    } catch (error) {
+      setErrorToastShown(true);
+    }
   };
+  const handleGitHubAuth = async () => {
+    try {
+      await auth.signInWithRedirect(githubProvider);
+      setSuccessToastShown(true);
+      history.push("/");
+    } catch (error) {
+      setErrorToastShown(true);
+    }
+  };
+  const handleTwitterAuth = async () => {
+    try {
+      await auth.signInWithRedirect(twitterProvider);
+      setSuccessToastShown(true);
+      history.push("/");
+    } catch (error) {
+      setErrorToastShown(true);
+    }
+  };
+  
+  useEffect(() => {
+    if (currentUser) history.push("/");
+  }, [currentUser, history]);
+
 
   return (
     <IonPage>
       <IonContent>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Welcome!</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Welcome!</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonCard className="greet-card">
           <IonCardHeader>
-            <IonImg src={Landscape} >
-
-            </IonImg>
             <IonCardTitle>
               <h4>Yo!👋, Welcome to Code Penguins!</h4>
             </IonCardTitle>
@@ -75,32 +109,27 @@ const Auth: React.FC<AuthProps> = () => {
         </IonCard>
 
         <IonCard>
-          <IonItem>
-            <IonInput
-              type="email"
-              onIonChange={(e) => setEmail(e.detail.value!)}
-              placeholder="E-Mail"
-            ></IonInput>
-          </IonItem>
-
-          <IonItem>
-            <IonInput
-              type="password"
-              onIonChange={(e) => setPassword(e.detail.value!)}
-              placeholder="Password"
-            ></IonInput>
-          </IonItem>
-
-          <IonButton expand="block" onClick={() => submit()}>
-            Let's Go!🦜
+          <IonButton expand="block" onClick={handleGoogleAuth}>
+            <IonIcon icon={logoGoogle} /> Sign In with Google
+          </IonButton>
+          <IonButton expand="block" onClick={handleGitHubAuth}>
+            <IonIcon icon={logoGithub} /> Sign In with GitHub
+          </IonButton>
+          <IonButton expand="block" onClick={handleTwitterAuth}>
+            <IonIcon icon={logoTwitter} /> Sign In with Twitter
           </IonButton>
         </IonCard>
-        
-        <IonCard>
-          <IonButton expand="block" onClick={() => signInWithGoogle(dispatch)}>
-            Sign In with Google
-          </IonButton>
-        </IonCard>
+
+        <IonToast
+          isOpen={successToastShown!}
+          message="Login Successful, Yee!"
+          duration={1800}
+        />
+        <IonToast
+          isOpen={errorToastShown!}
+          message="Oops! Something went wrong during the login! Try again!"
+          duration={1800}
+        />
       </IonContent>
     </IonPage>
   );

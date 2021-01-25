@@ -1,8 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import reducer from "./reducer"
-
+import firebaseMiddleware from "./middleware/firebaseMiddleware"
 export default function config(){
     return configureStore({
-        reducer
+        reducer,
+        middleware: [
+            ...getDefaultMiddleware(),
+            firebaseMiddleware
+        ]
     })
 }
