@@ -10,15 +10,11 @@ import {
   IonList,
   IonChip,
   IonIcon,
-  IonRouterOutlet,
 } from "@ionic/react";
 import "./Home.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import { logoAndroid, logoAngular, logoApple, logoNodejs, logoReact, logoVue } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route } from "react-router";
-import NodeJSAndExpress from "../rooms/NodeJSAndExpress";
-import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -47,31 +43,31 @@ const Home: React.FC = () => {
               <IonLabel color="success"><IonIcon icon={logoNodejs} ></IonIcon></IonLabel>
             </IonChip>
           </IonItem>
-          <IonItem href="https://www.ionicframework.com">
+          <IonItem href="#">
             <IonLabel>React & React Native</IonLabel>
             <IonChip>
               <IonLabel color="primary"><IonIcon icon={logoReact} ></IonIcon></IonLabel>
             </IonChip>
           </IonItem>
-          <IonItem href="https://www.ionicframework.com">
+          <IonItem href="#">
             <IonLabel>Angular</IonLabel>
             <IonChip>
               <IonLabel color="danger"><IonIcon icon={logoAngular} ></IonIcon></IonLabel>
             </IonChip>
           </IonItem>
-          <IonItem href="https://www.ionicframework.com">
+          <IonItem href="#">
             <IonLabel>Vue & Vue Native</IonLabel>
             <IonChip>
               <IonLabel color="success"><IonIcon icon={logoVue} ></IonIcon></IonLabel>
             </IonChip>
           </IonItem>
-          <IonItem href="https://www.ionicframework.com">
+          <IonItem href="#">
             <IonLabel>Android development</IonLabel>
             <IonChip>
               <IonLabel color="success"><IonIcon icon={logoAndroid} ></IonIcon></IonLabel>
             </IonChip>
           </IonItem>
-          <IonItem href="https://www.ionicframework.com">
+          <IonItem href="#">
             <IonLabel>iOS development</IonLabel>
             <IonChip>
               <IonLabel color="white"><IonIcon icon={logoApple} ></IonIcon></IonLabel>
