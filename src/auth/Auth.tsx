@@ -20,7 +20,7 @@ import {
   githubProvider,
   twitterProvider,
 } from "../auth/firebase";
-import { AuthContext } from "../providers/Provider";
+import { AuthContext } from "../providers/AuthProvider";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
