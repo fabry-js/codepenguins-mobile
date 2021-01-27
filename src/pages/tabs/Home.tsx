@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonTitle style={textHeaderStyle}>Let's pick a room!</IonTitle>
         <IonList style={{marginTop: '10px'}}>
-          <IonItem href="/home/node">
+          <IonItem href="/node">
             <IonLabel>NodeJS & ExpressJS</IonLabel>
             <IonChip>
               <IonLabel color="success"><IonIcon icon={logoNodejs} ></IonIcon></IonLabel>
