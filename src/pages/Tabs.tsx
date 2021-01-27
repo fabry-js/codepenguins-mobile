@@ -54,7 +54,7 @@ const Tabs: React.FC = () => {
           <Route path="/home" exact={true} component={Home} />
           <Route path="/favourites" component={Favourites} />
           <Route path="/settings" component={Settings} />
-          <Route path="/node" component={NodeJSAndExpress} />
+          <Route path="/node" render={() => { return <NodeJSAndExpress />}} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">
