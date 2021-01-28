@@ -7,34 +7,28 @@
     font-size: 20px;
 }
 
-@media screen and (max-width: 380px) {
+.messagesList{
+    margin-bottom: 65px;
+}
+
+@media (max-width: 667px) {
     .sendmessageform {
         position: fixed;
         bottom: 0;
-        height: 35%;
+        height: 29%;
         width: 100%;
         display: flex;
         font-size: 20px;
     }
-}
-@media screen and (max-width: 670px) {
-    .sendmessageform {
-        position: fixed;
-        bottom: 0;
-        height: 27%;
-        width: 100%;
-        display: flex;
-        font-size: 20px;
-    }
-}
-@media screen and (max-width: 812px) {
-    .sendmessageform {
-        position: fixed;
-        bottom: 0;
-        height: 22%;
-        width: 100%;
-        display: flex;
-        font-size: 20px;
+    @media (max-width: 740px) {
+        .sendmessageform {
+            position: fixed;
+            bottom: 0;
+            height: 25%;
+            width: 100%;
+            display: flex;
+            font-size: 20px;
+        }
     }
 }
 

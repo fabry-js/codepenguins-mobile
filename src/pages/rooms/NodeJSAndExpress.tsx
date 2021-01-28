@@ -10,12 +10,14 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonList,
   IonPage,
+  IonText,
   IonTitle,
   IonToast,
   IonToolbar,
 } from "@ionic/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth, firestore } from "../../auth/firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import "./common.css";
@@ -26,27 +28,25 @@ import { sendOutline } from "ionicons/icons";
 interface NodeJSAndExpressProps {}
 
 const ChatMessage = (props: any) => {
-  const { text, uid } = props.message;
-  const photoURL: any = auth.currentUser?.photoURL;
+  const { text, uid, photoURL } = props.message;
 
   if (uid === auth.currentUser?.uid) {
     return (
-      <div>
         <IonChip>
           <IonChip>
             <IonImg src={photoURL} style={{ width: "100%", height: "100%" }} />
           </IonChip>
           <IonLabel>{text}</IonLabel>
         </IonChip>
-      </div>
     );
   } else {
     return (
-      <div>
         <IonChip>
+          <IonChip>
+            <IonImg src={photoURL} style={{ width: "100%", height: "100%" }} />
+          </IonChip>
           <IonLabel>{text}</IonLabel>
         </IonChip>
-      </div>
     );
   }
 };
@@ -67,6 +67,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
 
     const photoURL = auth.currentUser?.photoURL;
     const uid = auth.currentUser?.uid;
+    const username = auth.currentUser?.displayName;
 
     if (text !== "") {
       try {
@@ -75,6 +76,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           uid,
           photoURL,
+          username
         });
       } catch (error) {
         setErrorToast(true);
@@ -85,10 +87,10 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
     setText("");
 
     scrollDummy!.current!.scrollIntoView({ behavior: "smooth" });
+
   };
 
   const scrollDummy = useRef<null | HTMLDivElement>(null);
-
 
   return (
     <IonPage>
@@ -101,26 +103,31 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollEvents={true} scrollY={true}>
-        {messages &&
-          messages.map((msg: any) => (
-            <ChatMessage key={msg.id} message={msg} />
-          ))}
+        <IonList className="messagesList">
+          {messages &&
+            messages.map((msg: any) => {
+            return (
+              <IonItem>
+                <ChatMessage key={msg.id} message={msg}/>
+              </IonItem>
+            )
+          })}
         <div ref={scrollDummy}></div>
-
+        </IonList>
         <IonItem className="sendmessageform">
-            <form onSubmit={messageSubmit}>
-              <IonInput
-                value={text}
-                placeholder={`${placeholders[randomPlaceholder]}`}
-                onIonChange={(e) => setText(e.detail.value!)}
-                clearInput
-              ></IonInput>
-              <IonButton expand="block" type="submit">
-                <IonIcon icon={sendOutline} />
-              </IonButton>
-            </form>
+          <form onSubmit={messageSubmit}>
+            <IonInput
+              value={text}
+              placeholder={`${placeholders[randomPlaceholder]}`}
+              onIonChange={(e) => setText(e.detail.value!)}
+              clearInput
+            ></IonInput>
+            <IonButton expand="block" type="submit">
+              <IonIcon icon={sendOutline} />
+            </IonButton>
+          </form>
         </IonItem>
-        
+
         <IonToast
           isOpen={lengthZeroToast}
           duration={3000}
