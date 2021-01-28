@@ -12,12 +12,11 @@ import {
   IonLabel,
   IonList,
   IonPage,
-  IonText,
   IonTitle,
   IonToast,
   IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { auth, firestore } from "../../auth/firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import "./common.css";
