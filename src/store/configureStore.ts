@@ -1,17 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./reducers/rootReducer";
-import loggerMiddleware from "./middleware/logger";
-import apiMiddleware from "./middleware/api";
-
-
-export default function () {
-  return configureStore({
-    reducer,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware()
-          .prepend(
-              loggerMiddleware,
-              apiMiddleware
-          )
-  });
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import reducer from "./reducer"
+import firebaseMiddleware from "./middleware/firebaseMiddleware"
+export default function config(){
+    return configureStore({
+        reducer,
+        middleware: [
+            ...getDefaultMiddleware(),
+            firebaseMiddleware
+        ]
+    })
 }
