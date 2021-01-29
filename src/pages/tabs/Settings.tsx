@@ -2,29 +2,25 @@ import React, { useCallback, useState } from "react";
 import {
   IonButton,
   IonContent,
+  IonList,
   IonHeader,
   IonPage,
   IonTitle,
   IonToast,
   IonToolbar,
+  IonItem,
+  IonLabel,
 } from "@ionic/react";
 import "./Settings.css";
 import { auth } from "../../auth/firebase";
-// import { useHistory } from "react-router";
 
 const Settings: React.FC = () => {
   const [logoutToastShown, setLogoutToastShown] = useState<boolean>(false);
 
-  // const history = useHistory();
-
-  const handleSignOut = useCallback(
-    async () =>
-      await auth.signOut().then(() => {
-        // history.push("/");
-        setLogoutToastShown(true);
-      }),
-    []
-  );
+  const handleSignOut = useCallback(async () => {
+    await auth.signOut();
+    setLogoutToastShown(true);
+  }, []);
 
   return (
     <IonPage>
@@ -34,14 +30,19 @@ const Settings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonButton onClick={handleSignOut}>Sign Out</IonButton>
+        <IonList style={{ marginTop: "10px" }}>
+          <IonItem>
+            <IonLabel>Logout</IonLabel>
+            <IonButton color="success" fill="outline" onClick={handleSignOut}>Logout</IonButton>
+          </IonItem>
+        </IonList>
       </IonContent>
       <IonToast
-          color="primary"
-          isOpen={logoutToastShown!}
-          message="Logout done successfully, see you soon!"
-          duration={1800}
-        />
+        color="primary"
+        isOpen={logoutToastShown!}
+        message="Logout done successfully, see you soon!"
+        duration={1800}
+      />
     </IonPage>
   );
 };
