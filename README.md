@@ -6,11 +6,11 @@
 
 Hello Penguins of GitHub! Thanks for passing by and seeing my work on this project. Here are some screenshots of the app!
 
-![](../docs/screenshots/Home.png)
+![](./docs/screenshots/Home.png)
 
 Yeah, that's the Home Page Mr.Penguin, here you can choose among a lot of rooms (igloos) and enter in the one you like the most!
 
-![](../docs/screenshots/NodeRoom.png)
+![](./docs/screenshots/NodeRoom.png)
 
 Aaand That's the NodeJS Room, _those guys might've mistaken it for React dev room_ 😕
 
