@@ -36,6 +36,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "../theme/variables.css";
 import Auth from "../auth/Auth";
+import NodeJSAndExpress from "./rooms/NodeJSAndExpress";
 
 const Tabs: React.FC = () => {
   return (
@@ -53,6 +54,7 @@ const Tabs: React.FC = () => {
           <Route path="/home" exact={true} component={Home} />
           <Route path="/favourites" component={Favourites} />
           <Route path="/settings" component={Settings} />
+          <Route path="/node" render={() => { return <NodeJSAndExpress />}} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">

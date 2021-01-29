@@ -1,0 +1,37 @@
+.sendmessageform {
+    position: fixed;
+    bottom: 0;
+    height: 25%;
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+}
+
+.messagesList{
+    margin-bottom: 65px;
+}
+
+@media (max-width: 667px) {
+    .sendmessageform {
+        position: fixed;
+        bottom: 0;
+        height: 29%;
+        width: 100%;
+        display: flex;
+        font-size: 20px;
+    }
+    @media (max-width: 740px) {
+        .sendmessageform {
+            position: fixed;
+            bottom: 0;
+            height: 25%;
+            width: 100%;
+            display: flex;
+            font-size: 20px;
+        }
+    }
+}
+
+form {
+    width: 100%;
+}

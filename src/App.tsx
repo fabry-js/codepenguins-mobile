@@ -1,8 +1,3 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -22,25 +17,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-import { Provider } from "./providers/Provider";
-import Auth from "./auth/Auth";
-import PrivateRoute from "./PrivateRoute";
-import Tabs from "./pages/Tabs";
+import { Provider } from "./providers/AuthProvider";
 
-
-const App: React.FC = () => {
-  return (
-    <Provider>
-      <IonApp>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <PrivateRoute exact path="/" component={Tabs} />
-            <Route exact path="/auth" component={Auth} />
-          </IonRouterOutlet>
-        </IonReactRouter>
-      </IonApp>
-    </Provider>
-  );
-};
-
-export default App;
+export default Provider;
