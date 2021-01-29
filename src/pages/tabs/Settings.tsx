@@ -13,9 +13,12 @@ import {
 } from "@ionic/react";
 import "./Settings.css";
 import { auth } from "../../auth/firebase";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
 
 const Settings: React.FC = () => {
   const [logoutToastShown, setLogoutToastShown] = useState<boolean>(false);
+  const {currentUser} = useContext(AuthContext);
 
   const handleSignOut = useCallback(async () => {
     await auth.signOut();
@@ -34,6 +37,10 @@ const Settings: React.FC = () => {
           <IonItem>
             <IonLabel>Logout</IonLabel>
             <IonButton color="success" fill="outline" onClick={handleSignOut}>Logout</IonButton>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Current User Account</IonLabel>
+            <IonButton fill="clear" color="success">{currentUser.displayName}</IonButton>
           </IonItem>
         </IonList>
       </IonContent>
