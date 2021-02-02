@@ -43,8 +43,8 @@ const Tabs: React.FC = () => {
     <IonReactRouter>
         <IonPage>
           <IonContent fullscreen>
-            <IonText>
-              Pick a section below and start exploring, fellow penguin!
+            <IonText style={{textAlign: 'center'}}>
+              <i>Pick a section below and start exploring, fellow penguin!</i>
             </IonText>
           </IonContent>
         </IonPage>
@@ -54,7 +54,7 @@ const Tabs: React.FC = () => {
           <Route path="/home" exact={true} component={Home} />
           <Route path="/favourites" component={Favourites} />
           <Route path="/settings" component={Settings} />
-          <Route path="/node" render={() => { return <NodeJSAndExpress />}} />
+          <Route path="/node" component={NodeJSAndExpress} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">

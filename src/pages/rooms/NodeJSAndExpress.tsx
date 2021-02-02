@@ -12,6 +12,7 @@ import {
   IonLabel,
   IonList,
   IonPage,
+  IonPopover,
   IonTitle,
   IonToast,
   IonToolbar,
@@ -31,21 +32,21 @@ const ChatMessage = (props: any) => {
 
   if (uid === auth.currentUser?.uid) {
     return (
+      <>
         <IonChip>
-          <IonChip>
-            <IonImg src={photoURL} style={{ width: "100%", height: "100%" }} />
-          </IonChip>
-          <IonLabel>{text}</IonLabel>
+          <IonImg src={photoURL} className="avatar-picture" />
         </IonChip>
+        <IonLabel>{text}</IonLabel>
+      </>
     );
   } else {
     return (
+      <>
         <IonChip>
-          <IonChip>
-            <IonImg src={photoURL} style={{ width: "100%", height: "100%" }} />
-          </IonChip>
-          <IonLabel>{text}</IonLabel>
+          <IonImg src={photoURL} className="avatar-picture" />
         </IonChip>
+        <IonLabel>{text}</IonLabel>
+      </>
     );
   }
 };
@@ -58,6 +59,10 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
   const [text, setText] = useState<string>();
   const [lengthZeroToast, setLengthZeroToast] = useState<boolean>(false);
   const [errorToast, setErrorToast] = useState<boolean>(false);
+  const [popoverState, setShowOptionsPopover] = useState({
+    showPopover: false,
+    event: undefined,
+  });
 
   const randomPlaceholder = Math.floor(Math.random() * placeholders.length);
 
@@ -75,7 +80,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           uid,
           photoURL,
-          username
+          username,
         });
       } catch (error) {
         setErrorToast(true);
@@ -86,7 +91,6 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
     setText("");
 
     scrollDummy!.current!.scrollIntoView({ behavior: "smooth" });
-
   };
 
   const scrollDummy = useRef<null | HTMLDivElement>(null);
@@ -105,13 +109,18 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
         <IonList className="messagesList">
           {messages &&
             messages.map((msg: any) => {
-            return (
-              <IonItem>
-                <ChatMessage key={msg.id} message={msg}/>
-              </IonItem>
-            )
-          })}
-        <div ref={scrollDummy}></div>
+              return (
+                <IonItem key={msg.id}>
+                  <IonChip onClick={(e:any) => {
+                    e.persist();
+                    setShowOptionsPopover({showPopover: true, event: e});
+                  }}>
+                    <ChatMessage key={msg.id} message={msg} />
+                  </IonChip>
+                </IonItem>
+              );
+            })}
+          <div ref={scrollDummy}></div>
         </IonList>
         <IonItem className="sendmessageform">
           <form onSubmit={messageSubmit}>
@@ -120,12 +129,23 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
               placeholder={`${placeholders[randomPlaceholder]}`}
               onIonChange={(e) => setText(e.detail.value!)}
               clearInput
-            ></IonInput>
-            <IonButton expand="block" type="submit">
-              <IonIcon icon={sendOutline} />
-            </IonButton>
+            >
+              <IonButton className="sumbit-button" type="submit">
+                <IonIcon icon={sendOutline} />
+              </IonButton>
+            </IonInput>
           </form>
         </IonItem>
+
+        <IonPopover
+          event={popoverState.event}
+          isOpen={popoverState.showPopover}
+          onDidDismiss={() =>
+            setShowOptionsPopover({ showPopover: false, event: undefined })
+          }
+        >
+          <p>Hello!</p>
+        </IonPopover>
 
         <IonToast
           isOpen={lengthZeroToast}

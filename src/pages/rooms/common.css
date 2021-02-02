@@ -7,8 +7,17 @@
     font-size: 20px;
 }
 
-.messagesList{
+.sumbit-button {
+    width: 15%;
+}
+
+.messagesList {
     margin-bottom: 65px;
+}
+
+.avatar-picture {
+    width: 100%;
+    height: 100%;
 }
 
 @media (max-width: 667px) {
@@ -24,10 +33,30 @@
         .sendmessageform {
             position: fixed;
             bottom: 0;
-            height: 25%;
+            height: 22%;
             width: 100%;
             display: flex;
             font-size: 20px;
+        }
+        @media (max-width: 812px) {
+            .sendmessageform {
+                position: fixed;
+                bottom: 0;
+                height: 20%;
+                width: 100%;
+                display: flex;
+                font-size: 20px;
+            }
+            @media (max-width: 1024px) {
+                .sendmessageform {
+                    position: fixed;
+                    bottom: 0;
+                    height: 16%;
+                    width: 100%;
+                    display: flex;
+                    font-size: 20px;
+                }
+            }
         }
     }
 }
