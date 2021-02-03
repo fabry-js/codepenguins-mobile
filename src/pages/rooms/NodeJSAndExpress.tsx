@@ -248,9 +248,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
               display: flex;
               font-size: 20px;
             }
-            .reportCard {
-              margin: 0px 0px 500px 0px;
-            }
+
           }
           @media screen and (max-width: 667px) {
             .sendmessageform {
@@ -261,9 +259,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
               display: flex;
               font-size: 20px;
             }
-            .reportCard {
-              margin: 0px 0px 600px 0px;
-            }
+
           }
           @media screen and (max-width: 812px) {
             .sendmessageform {
@@ -274,9 +270,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
               display: flex;
               font-size: 20px;
             }
-            .reportCard {
-              margin: 0px 0px 410px 0px;
-            }
+
           }
           `}</style>
     </IonPage>
