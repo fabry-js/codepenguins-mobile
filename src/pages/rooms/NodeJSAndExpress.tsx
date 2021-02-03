@@ -27,7 +27,6 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import "./common.css";
 import firebase from "firebase";
 import placeholders from "./randoms/InputPlaceholdersList.json";
-import submitButtonColors from "./randoms/SubmitButtonColors.json";
 import { alertCircleOutline, sendOutline } from "ionicons/icons";
 import { ChatMessage } from "../ChatMessage";
 
@@ -50,9 +49,6 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
   });
 
   const randomPlaceholder = Math.floor(Math.random() * placeholders.length);
-  const randomSubmitButtonColor = Math.floor(
-    Math.random() * submitButtonColors.length
-  );
 
   const reportMessage = async () => {
     const uid = auth.currentUser?.uid;
@@ -144,7 +140,7 @@ const NodeJSAndExpress: React.FC<NodeJSAndExpressProps> = () => {
               clearInput
             >
               <IonButton
-                color={`${submitButtonColors[randomSubmitButtonColor]}`}
+                color="dark"
                 className="sumbit-button"
                 type="submit"
               >
